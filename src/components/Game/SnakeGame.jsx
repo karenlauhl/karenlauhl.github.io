@@ -6,7 +6,7 @@ const COLS = 24;
 const ROWS = 18;
 const START_SPEED = 140;
 const MIN_SPEED = 70;
-const HIGH_SCORE_KEY = 'karen6099-snake-high-score';
+const HIGH_SCORE_KEY = 'karenlauhl-snake-high-score';
 
 const DIRECTIONS = {
   up: { x: 0, y: -1 },

@@ -4,7 +4,7 @@ const Contact = () => (
   <>
     <section id="contact" className="page-section contact">
       <div className="container">
-        <p className="section-kicker">Contact</p>
+        <p className="section-kicker">Stage 04 · Contact</p>
         <h2 className="section-title">Get in touch</h2>
         <p className="contact-text">
           Want to talk about a role or a project? Email me or find me on LinkedIn.

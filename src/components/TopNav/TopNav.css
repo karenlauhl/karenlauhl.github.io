@@ -1,0 +1,115 @@
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(5, 5, 10, 0.92);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-bottom: 2px solid var(--color-border);
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.6rem;
+  transform: translateY(-110%);
+  transition: transform 0.25s ease;
+}
+
+.top-nav.is-visible {
+  transform: translateY(0);
+}
+
+.hud-score {
+  display: flex;
+  gap: 0.6rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.hud-1up {
+  color: #ff3b3b;
+  text-shadow: 0 0 8px rgba(255, 59, 59, 0.7);
+  animation: coinBlink 1.2s steps(1) infinite;
+}
+
+.hud-digits {
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  animation: hudFlash 0.6s steps(2) 1;
+}
+
+/* Brief yellow flash when the score changes */
+@keyframes hudFlash {
+  0% { color: #ffe600; }
+  100% { color: #fff; }
+}
+
+.hud-credit {
+  color: #ffe600;
+  white-space: nowrap;
+  text-shadow: 0 0 8px rgba(255, 230, 0, 0.6);
+}
+
+.top-nav-links {
+  display: flex;
+  gap: 1.25rem;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.top-nav-links a {
+  color: var(--color-muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.top-nav-links a::before {
+  content: '▶ ';
+  visibility: hidden;
+  color: #ff2fd0;
+}
+
+.top-nav-links a:hover,
+.top-nav-links a.is-current {
+  color: var(--color-heading);
+}
+
+.top-nav-links a.is-current::before {
+  visibility: visible;
+}
+
+.top-nav a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+@media (max-width: 900px) {
+  .hud-credit {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .top-nav {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.5rem;
+  }
+
+  .hud-score,
+  .hud-credit,
+  .top-nav-start {
+    display: none;
+  }
+
+  .top-nav-links {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+}

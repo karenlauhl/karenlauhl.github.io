@@ -17,15 +17,14 @@
 
 .about-block {
   padding: 1.5rem;
-  border-radius: 16px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
 }
 
 .about-block h3 {
-  font-size: 1rem;
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.7rem;
+  line-height: 1.6;
   margin-bottom: 1rem;
-  color: var(--color-secondary);
+  color: var(--accent, var(--color-secondary));
 }
 
 .about-list {
@@ -58,4 +57,65 @@
   font-size: 0.9rem;
   line-height: 1.55;
   color: var(--color-muted);
+}
+
+/* Bio beside a game-style profile card */
+.about-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.profile-card {
+  --accent: #ff2fd0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.profile-card-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0.9rem;
+  background: var(--accent);
+  color: #0a0a10;
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.55rem;
+}
+
+.profile-card-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.1rem 1.1rem 0.5rem;
+}
+
+.profile-card-fields div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.6rem;
+  align-items: baseline;
+}
+
+.profile-card-fields dt {
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.profile-card-fields dd {
+  color: var(--color-text);
+}
+
+.profile-card-status {
+  padding: 0.6rem 1.1rem 1.1rem;
+  color: #39ff14;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 860px) {
+  .about-intro {
+    grid-template-columns: 1fr;
+  }
 }

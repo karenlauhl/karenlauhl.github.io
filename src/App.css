@@ -79,24 +79,47 @@ body {
   scroll-margin-top: 1rem;
 }
 
-.page-section + .page-section {
-  border-top: 1px solid var(--color-border);
-}
 
 .section-kicker {
   font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-primary);
-  margin-bottom: 0.75rem;
+  color: #ffe600;
+  margin-bottom: 1rem;
 }
 
+/* Chunky pixel heading with a two-colour offset shadow */
 .section-title {
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
-  color: var(--color-heading);
-  margin-bottom: 2rem;
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(1.25rem, 3.6vw, 2.25rem);
+  line-height: 1.35;
+  color: #ff2fd0;
+  text-shadow: 3px 3px 0 #00b8ff, 6px 6px 0 rgba(0, 0, 0, 0.6);
+  margin-bottom: 2.25rem;
 }
+
+/* Boxy neon panel with a hard drop shadow. --accent is set per panel by
+   .accent-cycle (or directly), so each card gets its own colour. */
+.pixel-panel {
+  background: var(--color-surface);
+  border: 2px solid var(--accent, var(--color-primary));
+  border-radius: 4px;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.7),
+    0 0 18px color-mix(in srgb, var(--accent, var(--color-primary)) 18%, transparent);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pixel-panel:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.7),
+    0 0 26px color-mix(in srgb, var(--accent, var(--color-primary)) 30%, transparent);
+}
+
+.accent-cycle > :nth-child(4n + 1) { --accent: #00fff2; }
+.accent-cycle > :nth-child(4n + 2) { --accent: #ff2fd0; }
+.accent-cycle > :nth-child(4n + 3) { --accent: #ffe600; }
+.accent-cycle > :nth-child(4n + 4) { --accent: #39ff14; }
 
 /* Pill buttons used by project cards and the contact section */
 .project-link {
@@ -153,6 +176,9 @@ body {
   }
 
   .doodle,
+  .stage-1up,
+  .hud-1up,
+  .hud-digits,
   .marquee-light,
   .screen-scanlines,
   .joystick-stick,
