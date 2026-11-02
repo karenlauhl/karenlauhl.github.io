@@ -5,7 +5,8 @@ import { DVDProvider } from './contexts/DVDContext';
 import { useScrollAnimation } from './hooks/useScrollAnimation';
 import Hero from './components/Hero/Hero';
 import TopNav from './components/TopNav/TopNav';
-import Ticker from './components/Ticker/Ticker';
+import StageClear from './components/StageClear/StageClear';
+import { stageById } from './data/stages';
 import Experience from './components/Experience/Experience';
 import Projects from './components/Projects/Projects';
 import About from './components/About/About';
@@ -23,14 +24,14 @@ function App() {
           <TopNav />
           <Hero activeSection={activeSection} onSelectSection={setActiveSection} />
           <main>
-            <Ticker color="cyan" items={['Experience', 'Career log']} />
+            <StageClear {...stageById('experience')} />
             <Experience />
-            <Ticker color="magenta" items={['Projects', 'Things I built']} />
+            <StageClear {...stageById('projects')} />
             <Projects />
-            <Ticker color="yellow" items={['About', 'Skill tree']} />
+            <StageClear {...stageById('about')} />
             <About />
           </main>
-          <Ticker color="green" items={['Contact', 'Press start']} />
+          <StageClear {...stageById('contact')} />
           <Contact />
         </DVDProvider>
       </StarfieldProvider>

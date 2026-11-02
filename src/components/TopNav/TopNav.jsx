@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
+import stages, { stageById } from '../../data/stages';
 import './TopNav.css';
 
-const links = [
-  { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'about', label: 'About' },
-  { id: 'contact', label: 'Contact' }
-];
+const pad = n => String(n).padStart(6, '0');
 
-// Game-style top bar. Hidden while the arcade cabinet (the start screen) is in
-// view, then slides in and marks the section you're reading.
+// Arcade score HUD. Hidden while the cabinet (the start screen) is in view,
+// then slides in. The 1UP score is the score of the section you're reading,
+// matching the stage-clear strip you just passed.
 const TopNav = () => {
   const [visible, setVisible] = useState(false);
   const [current, setCurrent] = useState(null);
@@ -22,7 +19,10 @@ const TopNav = () => {
 
     const hero = document.getElementById('home');
     const heroObserver = new IntersectionObserver(
-      ([entry]) => setVisible(!entry.isIntersecting),
+      ([entry]) => {
+        setVisible(!entry.isIntersecting);
+        if (entry.isIntersecting) setCurrent(null);
+      },
       { threshold: 0.15 }
     );
     if (hero) heroObserver.observe(hero);
@@ -32,7 +32,7 @@ const TopNav = () => {
       entries => entries.forEach(entry => entry.isIntersecting && setCurrent(entry.target.id)),
       { rootMargin: '-45% 0px -50% 0px' }
     );
-    links.forEach(({ id }) => {
+    stages.forEach(({ id }) => {
       const el = document.getElementById(id);
       if (el) sectionObserver.observe(el);
     });
@@ -43,22 +43,34 @@ const TopNav = () => {
     };
   }, []);
 
+  const score = stageById(current)?.score ?? 0;
+
   return (
     <nav className={`top-nav ${visible ? 'is-visible' : ''}`} aria-label="Sections">
-      <a href="#home" className="top-nav-brand">◆ KAREN LAU</a>
+      <a href="#home" className="hud-score" title="Back to the start">
+        <span className="hud-1up">1UP</span>
+        {/* key restarts the flash animation whenever the score changes */}
+        <span className="hud-digits" key={score}>{pad(score)}</span>
+      </a>
+
       <ul className="top-nav-links">
-        {links.map(link => (
-          <li key={link.id}>
+        <li className="top-nav-start">
+          <a href="#home">Start</a>
+        </li>
+        {stages.map(stage => (
+          <li key={stage.id}>
             <a
-              href={`#${link.id}`}
-              className={current === link.id ? 'is-current' : ''}
-              aria-current={current === link.id ? 'true' : undefined}
+              href={`#${stage.id}`}
+              className={current === stage.id ? 'is-current' : ''}
+              aria-current={current === stage.id ? 'true' : undefined}
             >
-              {link.label}
+              {stage.nav}
             </a>
           </li>
         ))}
       </ul>
+
+      <span className="hud-credit" aria-hidden="true">CREDIT 01</span>
     </nav>
   );
 };

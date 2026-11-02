@@ -1,0 +1,60 @@
+.stage-clear {
+  --stage-color: #00fff2;
+  padding: 1.1rem 0;
+  background:
+    repeating-linear-gradient(90deg, var(--stage-color) 0 12px, transparent 12px 20px) top / 100% 3px no-repeat,
+    repeating-linear-gradient(90deg, var(--stage-color) 0 12px, transparent 12px 20px) bottom / 100% 3px no-repeat,
+    color-mix(in srgb, var(--stage-color) 7%, #05050a);
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.stage-clear--cyan { --stage-color: #00fff2; }
+.stage-clear--magenta { --stage-color: #ff2fd0; }
+.stage-clear--yellow { --stage-color: #ffe600; }
+.stage-clear--green { --stage-color: #39ff14; }
+
+.stage-clear-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  font-size: clamp(0.6rem, 1.4vw, 0.85rem);
+  text-transform: uppercase;
+}
+
+.stage-clear-label {
+  color: var(--stage-color);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--stage-color) 70%, transparent);
+  white-space: nowrap;
+}
+
+.stage-clear-score {
+  color: #d7d7e0;
+  white-space: nowrap;
+}
+
+.stage-clear-digits {
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.stage-1up {
+  color: #ff3b3b;
+  text-shadow: 0 0 8px rgba(255, 59, 59, 0.7);
+  animation: coinBlink 1.2s steps(1) infinite;
+}
+
+@media (max-width: 560px) {
+  .stage-clear-inner {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .stage-1up {
+    display: none;
+  }
+}

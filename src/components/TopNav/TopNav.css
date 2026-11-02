@@ -23,9 +23,33 @@
   transform: translateY(0);
 }
 
-.top-nav-brand {
-  color: #ffe600;
+.hud-score {
+  display: flex;
+  gap: 0.6rem;
   text-decoration: none;
+  white-space: nowrap;
+}
+
+.hud-1up {
+  color: #ff3b3b;
+  text-shadow: 0 0 8px rgba(255, 59, 59, 0.7);
+  animation: coinBlink 1.2s steps(1) infinite;
+}
+
+.hud-digits {
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  animation: hudFlash 0.6s steps(2) 1;
+}
+
+/* Brief yellow flash when the score changes */
+@keyframes hudFlash {
+  0% { color: #ffe600; }
+  100% { color: #fff; }
+}
+
+.hud-credit {
+  color: #ffe600;
   white-space: nowrap;
   text-shadow: 0 0 8px rgba(255, 230, 0, 0.6);
 }
@@ -65,13 +89,21 @@
   outline-offset: 4px;
 }
 
+@media (max-width: 900px) {
+  .hud-credit {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) {
   .top-nav {
     padding: 0.65rem 0.75rem;
     font-size: 0.5rem;
   }
 
-  .top-nav-brand {
+  .hud-score,
+  .hud-credit,
+  .top-nav-start {
     display: none;
   }
 
