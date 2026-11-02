@@ -1,3 +1,4 @@
+import NeonCat from '../NeonCat/NeonCat';
 import './Contact.css';
 
 const Contact = () => (
@@ -23,6 +24,7 @@ const Contact = () => (
       </div>
     </section>
     <footer className="site-footer">
+      <NeonCat />
       <div className="container">© {new Date().getFullYear()} Karen Lau</div>
     </footer>
   </>
