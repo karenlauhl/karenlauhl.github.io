@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { StarfieldProvider } from './contexts/StarfieldContext';
 import { DVDProvider } from './contexts/DVDContext';
+import { BonusProvider } from './contexts/BonusContext';
 import { useScrollAnimation } from './hooks/useScrollAnimation';
 import Hero from './components/Hero/Hero';
 import TopNav from './components/TopNav/TopNav';
@@ -21,6 +22,7 @@ function App() {
     <ThemeProvider>
       <StarfieldProvider>
         <DVDProvider>
+          <BonusProvider>
           <TopNav />
           <Hero activeSection={activeSection} onSelectSection={setActiveSection} />
           <main>
@@ -33,6 +35,7 @@ function App() {
           </main>
           <StageClear {...stageById('contact')} />
           <Contact />
+          </BonusProvider>
         </DVDProvider>
       </StarfieldProvider>
     </ThemeProvider>

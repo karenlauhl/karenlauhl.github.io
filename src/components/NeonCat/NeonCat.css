@@ -1,0 +1,100 @@
+/* Sits on the footer's top edge; only the head shows until you hover. */
+.neon-cat-perch {
+  position: absolute;
+  right: clamp(1rem, 6vw, 5rem);
+  bottom: 100%;
+  width: 64px;
+  height: 34px;
+}
+
+/* Hides the cat's body below the footer line */
+.neon-cat-window {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.neon-cat {
+  display: block;
+  width: 64px;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform: translateY(14px);
+  transition: transform 0.2s ease;
+  filter: drop-shadow(0 0 4px #ff2fd0) drop-shadow(0 0 10px rgba(255, 47, 208, 0.6));
+}
+
+.neon-cat:hover,
+.neon-cat:focus-visible {
+  transform: translateY(4px);
+  outline: none;
+}
+
+.neon-cat:focus-visible {
+  filter: drop-shadow(0 0 4px #ffe600) drop-shadow(0 0 10px rgba(255, 230, 0, 0.7));
+}
+
+/* A new key on each click remounts the button, so the hop replays. */
+.neon-cat.is-hopping {
+  animation: catHop 0.45s ease-out;
+}
+
+@keyframes catHop {
+  0% { transform: translateY(14px); }
+  40% { transform: translateY(-4px); }
+  100% { transform: translateY(4px); }
+}
+
+.neon-cat svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.cat-line {
+  fill: #0a0a12;
+  stroke: #ff2fd0;
+  stroke-width: 0.8;
+  stroke-linejoin: miter;
+}
+
+.cat-eye {
+  fill: #00fff2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: catBlink 4s steps(1) infinite;
+}
+
+.cat-nose {
+  fill: #ffe600;
+}
+
+.cat-whisker {
+  stroke: #00fff2;
+  stroke-width: 0.4;
+  opacity: 0.8;
+}
+
+@keyframes catBlink {
+  0%, 92% { transform: scaleY(1); }
+  93%, 97% { transform: scaleY(0.15); }
+  98%, 100% { transform: scaleY(1); }
+}
+
+.neon-cat-bubble {
+  position: absolute;
+  right: 70px;
+  bottom: 8px;
+  padding: 0.45rem 0.6rem;
+  border: 2px solid #ffe600;
+  border-radius: 4px;
+  background: #0a0a12;
+  color: #ffe600;
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.5rem;
+  white-space: nowrap;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.7);
+}

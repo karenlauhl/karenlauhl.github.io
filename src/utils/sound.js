@@ -15,7 +15,8 @@ const getContext = () => {
 const VARIANTS = {
   primary: { start: 880, end: 440, type: 'square', duration: 0.09 },
   secondary: { start: 660, end: 990, type: 'triangle', duration: 0.07 },
-  gameover: { start: 320, end: 90, type: 'square', duration: 0.45 }
+  gameover: { start: 320, end: 90, type: 'square', duration: 0.45 },
+  meow: { start: 1200, end: 520, type: 'triangle', duration: 0.32 }
 };
 
 export const playArcadeBlip = (variant = 'primary') => {
