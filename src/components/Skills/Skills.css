@@ -1,51 +1,6 @@
-.skills {
-  padding: 4rem 0;
-  background: var(--color-bg);
-}
-
-[data-theme="dark"] .skills {
-  background: var(--color-bg);
-}
-
-.skills h2 {
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
-  text-align: center;
-  color: var(--color-text);
-  font-weight: bold;
-}
-
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-@media (max-width: 768px) {
-  .skills {
-    padding: 3rem 0;
-  }
-
-  .skills h2 {
-    font-size: 2rem;
-  }
-
-  .skills-grid {
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .skills {
-    padding: 2rem 0;
-  }
-
-  .skills h2 {
-    font-size: 1.5rem;
-  }
-
-  .skills-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
 }

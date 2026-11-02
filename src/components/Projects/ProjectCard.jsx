@@ -1,17 +1,39 @@
 import './ProjectCard.css';
 
-const ProjectCard = ({ title, description, tags, link }) => {
+const ProjectCard = ({ project }) => {
+  const { title, tagline, highlights, tech, links, codeNote } = project;
+
   return (
-    <div className="project-card animate-on-scroll">
-      <div className="project-header">{title}</div>
-      <p>{description}</p>
-      <div className="project-tags">
-        {tags.map((tag, index) => (
-          <span key={index} className="tag">{tag}</span>
+    <article className="project-card animate-on-scroll">
+      <h3 className="project-title">{title}</h3>
+      <p className="project-tagline">{tagline}</p>
+
+      <ul className="project-highlights">
+        {highlights.map(point => (
+          <li key={point}>{point}</li>
         ))}
+      </ul>
+
+      <ul className="project-tags" aria-label="Technologies">
+        {tech.map(tag => (
+          <li key={tag} className="tag">{tag}</li>
+        ))}
+      </ul>
+
+      <div className="project-links">
+        {links.live && (
+          <a href={links.live} target="_blank" rel="noreferrer" className="project-link project-link--primary">
+            Live demo ↗
+          </a>
+        )}
+        {links.code && (
+          <a href={links.code} target="_blank" rel="noreferrer" className="project-link">
+            Code ↗
+          </a>
+        )}
+        {!links.code && codeNote && <span className="project-note">{codeNote}</span>}
       </div>
-      <a href={link} className="project-link">View Project →</a>
-    </div>
+    </article>
   );
 };
 

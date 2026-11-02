@@ -273,15 +273,34 @@
   text-shadow: 0 0 10px rgba(0, 255, 242, 0.5);
 }
 
-.insert-coin {
+.view-projects-btn {
+  display: inline-block;
+  padding: 0.85rem 1.3rem;
+  border-radius: 10px;
+  border: 2px solid #ffe600;
   font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 0.62rem;
   letter-spacing: 0.05em;
   color: #ffe600;
+  text-decoration: none;
   text-shadow: 0 0 8px rgba(255, 230, 0, 0.8);
-  animation: coinBlink 1.2s steps(1) infinite;
+  box-shadow: 0 0 12px rgba(255, 230, 0, 0.35), inset 0 0 12px rgba(255, 230, 0, 0.15);
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 
+.view-projects-btn:hover,
+.view-projects-btn:focus-visible {
+  background: #ffe600;
+  color: #14141a;
+  text-shadow: none;
+  outline: none;
+}
+
+.view-projects-btn:active {
+  transform: translateY(2px);
+}
+
+/* Blinking text (used by the Snake game's prompts) */
 @keyframes coinBlink {
   0%, 60% { opacity: 1; }
   61%, 100% { opacity: 0; }
@@ -700,8 +719,9 @@
     font-size: 0.9rem;
   }
 
-  .insert-coin {
-    font-size: 0.48rem;
+  .view-projects-btn {
+    font-size: 0.5rem;
+    padding: 0.7rem 1rem;
   }
 
   .section-launcher {

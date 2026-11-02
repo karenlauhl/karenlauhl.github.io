@@ -8,6 +8,10 @@
   --color-text: #eafeff;
   --color-light: #10202f;
   --color-bg: #071019;
+  --color-heading: #ffffff;
+  --color-muted: #9fb7bd;
+  --color-surface: #0c1a26;
+  --color-border: rgba(0, 255, 242, 0.14);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 10px rgba(0, 255, 242, 0.12);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.55);
@@ -19,6 +23,10 @@
   --color-text: #eaffea;
   --color-light: #0e1f10;
   --color-bg: #060d06;
+  --color-heading: #ffffff;
+  --color-muted: #a3b8a0;
+  --color-surface: #0b170b;
+  --color-border: rgba(57, 255, 20, 0.14);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 4px 10px rgba(57, 255, 20, 0.12);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.6);
@@ -64,9 +72,71 @@ body {
   }
 }
 
-.animate-on-scroll {
-  opacity: 0;
-  animation: fadeInUp 0.6s ease forwards;
+/* Portfolio sections below the cabinet. .animate-on-scroll elements are
+   faded in by useScrollAnimation (src/hooks/useScrollAnimation.js). */
+.page-section {
+  padding: 5rem 0;
+  scroll-margin-top: 1rem;
+}
+
+.page-section + .page-section {
+  border-top: 1px solid var(--color-border);
+}
+
+.section-kicker {
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: var(--color-heading);
+  margin-bottom: 2rem;
+}
+
+/* Pill buttons used by project cards and the contact section */
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.project-link:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.project-link--primary {
+  color: var(--color-bg);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.project-link--primary:hover {
+  color: var(--color-bg);
+  background: color-mix(in srgb, var(--color-primary) 80%, white);
+}
+
+.project-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .page-section {
+    padding: 3.5rem 0;
+  }
 }
 
 /* Respect users who ask for less motion. Decorative loops are switched off
@@ -85,7 +155,6 @@ body {
   .doodle,
   .marquee-light,
   .screen-scanlines,
-  .insert-coin,
   .joystick-stick,
   .snake-food {
     animation: none !important;

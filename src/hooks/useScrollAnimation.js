@@ -1,22 +1,28 @@
 import { useEffect } from 'react';
+import { prefersReducedMotion } from '../utils/motion';
 
+// Fades .animate-on-scroll elements in as they scroll into view.
 export const useScrollAnimation = () => {
   useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+    // Leave everything visible for people who ask for less motion.
+    if (prefersReducedMotion() || !('IntersectionObserver' in window)) {
+      return undefined;
+    }
 
-    const observer = new IntersectionObserver(function (entries) {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
+          const el = entry.target;
+          // Clearing the inline styles (rather than setting 1 / translateY(0))
+          // hands control back to the stylesheet, so hover effects still work.
+          el.style.opacity = '';
+          el.style.transform = '';
+          el.addEventListener('transitionend', () => { el.style.transition = ''; }, { once: true });
+          observer.unobserve(el);
         }
       });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-    // Observe all elements with animation class
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     animatedElements.forEach(el => {
       el.style.opacity = '0';
@@ -25,8 +31,6 @@ export const useScrollAnimation = () => {
       observer.observe(el);
     });
 
-    return () => {
-      animatedElements.forEach(el => observer.unobserve(el));
-    };
+    return () => observer.disconnect();
   }, []);
 };

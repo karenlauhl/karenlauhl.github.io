@@ -86,7 +86,7 @@ const Hero = ({ activeSection, onSelectSection }) => {
 
   // Left: the important links, full size next to the sections.
   const linkButtons = [
-    { id: 'github', label: 'GitHub', color: 'magenta', Icon: GitHubIcon, href: 'https://github.com/karen6099' },
+    { id: 'github', label: 'GitHub', color: 'magenta', Icon: GitHubIcon, href: 'https://github.com/karenlauhl' },
     { id: 'linkedin', label: 'LinkedIn', color: 'yellow', Icon: LinkedInIcon, href: 'https://linkedin.com/in/karenlauhl' }
   ];
 
@@ -140,9 +140,11 @@ const Hero = ({ activeSection, onSelectSection }) => {
                 </div>
               ) : (
                 <div className="hero-content" key="home">
-                  <h1>Hi, I'm Karen</h1>
-                  <p className="subtitle">Developer | Designer | Creator</p>
-                  <p className="insert-coin">▶ INSERT COIN — PRESS A BUTTON BELOW</p>
+                  <h1>Karen Lau</h1>
+                  <p className="subtitle">Software Engineer · Java, Python &amp; full-stack</p>
+                  <a href="#experience" className="view-projects-btn" onClick={() => playArcadeBlip('primary')}>
+                    ▼ VIEW MY WORK
+                  </a>
                 </div>
               )}
             </div>

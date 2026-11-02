@@ -29,3 +29,6 @@ desktop.ini
 
 # Claude Code personal settings
 .claude/settings.local.json
+
+# PDFs (e.g. the CV, which has a phone number and work email) stay local
+*.pdf

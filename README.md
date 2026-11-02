@@ -129,9 +129,9 @@ The dark mode preference is automatically saved to browser localStorage.
 ## 👨‍💻 Author
 
 **Karen**
-- GitHub: [@karen6099](https://github.com/karen6099)
+- GitHub: [@karenlauhl](https://github.com/karenlauhl)
 - FlightRadar24: [Karen6099](https://my.flightradar24.com/Karen6099)
 
 ---
 
-**Last Updated**: January 2026
+**Last Updated**: Nov 2026
