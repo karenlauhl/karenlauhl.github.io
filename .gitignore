@@ -11,3 +11,21 @@ yarn-debug.log*
 yarn-error.log*
 .DS_Store
 .cache/
+
+# Test coverage and lint cache (created by npm test / react-scripts)
+coverage/
+.eslintcache
+
+# Any log files
+*.log
+
+# Windows and macOS clutter
+Thumbs.db
+desktop.ini
+
+# Editor: keep the shared launch.json, ignore personal VS Code settings
+.vscode/*
+!.vscode/launch.json
+
+# Claude Code personal settings
+.claude/settings.local.json

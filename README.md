@@ -31,8 +31,8 @@ A modern, interactive React portfolio website featuring a clean minimalist desig
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/karen6099/karen6099.github.io.git
-   cd karen6099.github.io
+   git clone https://github.com/karenlauhl/karenlauhl.github.io.git
+   cd karenlauhl.github.io
    ```
 
 2. **Install dependencies:**
@@ -41,9 +41,10 @@ A modern, interactive React portfolio website featuring a clean minimalist desig
    ```
 
 3. **Start the development server:**
-   ```bash
-   npm start
+   ```powershell
+   .\dev
    ```
+   (same as `npm start`)
    Opens automatically at `http://localhost:3000`
 
 4. **Build for production:**
@@ -51,10 +52,13 @@ A modern, interactive React portfolio website featuring a clean minimalist desig
    npm run build
    ```
 
-5. **Deploy to GitHub Pages:**
-   ```bash
-   npm run deploy
+5. **Put it live:**
+   ```powershell
+   .\ship "what I changed"
    ```
+   Runs a test build, commits everything, and pushes to `main`. GitHub Actions
+   then builds and publishes to https://karenlauhl.github.io (about 1–2 min).
+   A plain `git commit` + `git push` to `main` deploys the same way.
 
 ## 📁 Project Structure
 
