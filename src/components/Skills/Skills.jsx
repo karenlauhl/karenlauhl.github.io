@@ -12,7 +12,7 @@ const skillCategories = [
 ];
 
 const Skills = () => (
-  <div className="skills-grid">
+  <div className="skills-grid accent-cycle">
     {skillCategories.map(category => (
       <SkillCategory key={category.title} title={category.title} skills={category.skills} />
     ))}

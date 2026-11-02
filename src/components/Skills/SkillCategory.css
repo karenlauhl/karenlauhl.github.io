@@ -1,14 +1,13 @@
 .skill-category {
   padding: 1.5rem;
-  border-radius: 16px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
 }
 
 .skill-category h3 {
-  font-size: 1rem;
+  font-family: 'Press Start 2P', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.7rem;
+  line-height: 1.6;
   margin-bottom: 1rem;
-  color: var(--color-secondary);
+  color: var(--accent, var(--color-secondary));
 }
 
 .skill-list {

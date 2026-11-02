@@ -4,7 +4,7 @@ const ProjectCard = ({ project }) => {
   const { title, tagline, highlights, tech, links, codeNote } = project;
 
   return (
-    <article className="project-card animate-on-scroll">
+    <article className="project-card pixel-panel animate-on-scroll">
       <h3 className="project-title">{title}</h3>
       <p className="project-tagline">{tagline}</p>
 

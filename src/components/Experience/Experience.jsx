@@ -4,11 +4,11 @@ import './Experience.css';
 const Experience = () => (
   <section id="experience" className="page-section">
     <div className="container">
-      <p className="section-kicker">Experience</p>
+      <p className="section-kicker">Stage 01 · Experience</p>
       <h2 className="section-title">Where I've worked</h2>
-      <ol className="timeline">
+      <ol className="timeline accent-cycle">
         {experience.map(job => (
-          <li key={job.id} className="timeline-item animate-on-scroll">
+          <li key={job.id} className="timeline-item pixel-panel animate-on-scroll">
             <div className="timeline-head">
               <div>
                 <h3 className="timeline-role">{job.role}</h3>

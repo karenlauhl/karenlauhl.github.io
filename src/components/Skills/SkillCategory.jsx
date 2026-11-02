@@ -1,7 +1,7 @@
 import './SkillCategory.css';
 
 const SkillCategory = ({ title, skills }) => (
-  <div className="skill-category animate-on-scroll">
+  <div className="skill-category pixel-panel animate-on-scroll">
     <h3>{title}</h3>
     <ul className="skill-list">
       {skills.map(skill => (
