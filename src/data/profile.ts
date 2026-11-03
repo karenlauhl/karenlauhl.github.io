@@ -1,7 +1,9 @@
 // Experience, education and achievements, from Karen_Lau_Software_Engineer_CV.pdf.
 // Kept public-safe: no phone number, no internal model names, no job-search lines.
 
-export const experience = [
+import type { Education, Job } from '../types';
+
+export const experience: Job[] = [
   {
     id: 'citi-swe',
     org: 'Citi',
@@ -51,7 +53,7 @@ export const experience = [
   }
 ];
 
-export const education = [
+export const education: Education[] = [
   {
     id: 'qub',
     school: "Queen's University Belfast",
@@ -61,10 +63,10 @@ export const education = [
   }
 ];
 
-export const achievements = [
+export const achievements: string[] = [
   "Global Top 3 of 50+ teams, Citi's Global Technology Analyst Challenge 2025",
   'Winner, UKSEDS Olympus Rover Trials 2024 (software lead, team of 8)',
   'Class Representative, Citi graduate programme'
 ];
 
-export const spokenLanguages = ['English', 'Cantonese (native)', 'Mandarin', 'Japanese (limited working)'];
+export const spokenLanguages: string[] = ['English', 'Cantonese (native)', 'Mandarin', 'Japanese (limited working)'];

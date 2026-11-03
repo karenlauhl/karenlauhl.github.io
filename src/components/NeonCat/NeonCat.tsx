@@ -9,20 +9,20 @@ const MESSAGES = ['MEOW! ★ SECRET FOUND', 'CAT BONUS', 'PURR… KEEP SCROLLING
 // Easter egg: a pixel neon cat peeking over the footer. Each pet adds
 // CAT_BONUS to the top bar's score.
 const NeonCat = () => {
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState<string | null>(null);
   const [hops, setHops] = useState(0);
-  const timerRef = useRef(null);
+  const timerRef = useRef<number | undefined>(undefined);
   const { addBonus } = useBonus();
 
-  useEffect(() => () => clearTimeout(timerRef.current), []);
+  useEffect(() => () => window.clearTimeout(timerRef.current), []);
 
   const pet = () => {
     playArcadeBlip('meow');
     addBonus(CAT_BONUS);
     setMessage(`${MESSAGES[hops % MESSAGES.length]} +${CAT_BONUS}`);
     setHops(n => n + 1);
-    clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => setMessage(null), 2500);
+    window.clearTimeout(timerRef.current);
+    timerRef.current = window.setTimeout(() => setMessage(null), 2500);
   };
 
   return (

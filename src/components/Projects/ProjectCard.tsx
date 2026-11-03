@@ -1,6 +1,7 @@
+import type { Project } from '../../types';
 import './ProjectCard.css';
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project }: { project: Project }) => {
   const { title, tagline, highlights, tech, links, codeNote } = project;
 
   return (

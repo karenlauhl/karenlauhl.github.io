@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
-import stages, { stageById } from '../../data/stages';
+import stages from '../../data/stages';
+import type { SectionId } from '../../types';
 import { useBonus } from '../../contexts/BonusContext';
 import './TopNav.css';
 
-const pad = n => String(n).padStart(6, '0');
+const pad = (n: number) => String(n).padStart(6, '0');
 
 // Arcade score HUD. Hidden while the cabinet (the start screen) is in view,
 // then slides in. The 1UP score is the score of the section you're reading,
 // matching the stage-clear strip you just passed, plus any cat bonus.
 const TopNav = () => {
   const [visible, setVisible] = useState(false);
-  const [current, setCurrent] = useState(null);
+  const [current, setCurrent] = useState<SectionId | null>(null);
   const { bonus } = useBonus();
 
   useEffect(() => {
@@ -31,7 +32,9 @@ const TopNav = () => {
 
     // A section counts as current once it crosses the middle band of the screen.
     const sectionObserver = new IntersectionObserver(
-      entries => entries.forEach(entry => entry.isIntersecting && setCurrent(entry.target.id)),
+      entries => entries.forEach(entry => {
+        if (entry.isIntersecting) setCurrent(entry.target.id as SectionId);
+      }),
       { rootMargin: '-45% 0px -50% 0px' }
     );
     stages.forEach(({ id }) => {
@@ -46,7 +49,7 @@ const TopNav = () => {
   }, []);
 
   // Stage score plus anything earned from the cat.
-  const score = (stageById(current)?.score ?? 0) + bonus;
+  const score = (stages.find(stage => stage.id === current)?.score ?? 0) + bonus;
 
   return (
     <nav className={`top-nav ${visible ? 'is-visible' : ''}`} aria-label="Sections">

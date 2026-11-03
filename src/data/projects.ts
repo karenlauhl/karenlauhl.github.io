@@ -1,7 +1,9 @@
 // The projects shown in the Projects section, in display order.
 // To add one, copy an entry. Leave `code` out for private repos (visitors would
 // get a 404) and set `codeNote` instead.
-const projects = [
+import type { Project } from '../types';
+
+const projects: Project[] = [
   {
     id: 'tts-deck-forge',
     title: 'TTS Deck Forge',

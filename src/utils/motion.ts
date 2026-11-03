@@ -1,4 +1,4 @@
-export const prefersReducedMotion = () => {
+export const prefersReducedMotion = (): boolean => {
   if (typeof window === 'undefined' || !window.matchMedia) {
     return false;
   }

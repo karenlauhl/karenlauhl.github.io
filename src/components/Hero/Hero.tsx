@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { ComponentType, useCallback, useEffect, useRef, useState } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useStarfield } from '../../contexts/StarfieldContext';
 import { useDVD } from '../../contexts/DVDContext';
-import { playArcadeBlip } from '../../utils/sound';
+import { BlipVariant, playArcadeBlip } from '../../utils/sound';
+import type { ScreenApp } from '../../types';
 import DVD from '../Animations/DVD';
 import StarField from '../Animations/StarField';
 import Doodles from '../Animations/Doodles';
@@ -10,7 +11,41 @@ import FlightRadar from '../FlightRadar/FlightRadar';
 import SnakeGame from '../Game/SnakeGame';
 import './Hero.css';
 
-const sectionButtons = [
+// Button colours on the cabinet (orange is cabinet-only, not a NeonColor).
+type ButtonColor = 'cyan' | 'magenta' | 'yellow' | 'green' | 'orange';
+
+interface SectionButton {
+  id: ScreenApp;
+  label: string;
+  icon: string;
+  color: ButtonColor;
+  Component: ComponentType;
+}
+
+interface LinkButton {
+  id: string;
+  label: string;
+  color: ButtonColor;
+  Icon: ComponentType;
+  href: string;
+}
+
+interface ToggleButton {
+  id: string;
+  label: string;
+  color: ButtonColor;
+  Icon: ComponentType;
+  title: string;
+  on: boolean;
+  onClick: () => void;
+}
+
+interface HeroProps {
+  activeSection: ScreenApp | null;
+  onSelectSection: (section: ScreenApp | null) => void;
+}
+
+const sectionButtons: SectionButton[] = [
   { id: 'flights', label: 'Flights', icon: '✈', color: 'cyan', Component: FlightRadar },
   { id: 'game', label: 'Play', icon: '🕹', color: 'orange', Component: SnakeGame }
 ];
@@ -54,25 +89,25 @@ const MoonIcon = () => (
   </svg>
 );
 
-const Hero = ({ activeSection, onSelectSection }) => {
+const Hero = ({ activeSection, onSelectSection }: HeroProps) => {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { isStarfieldVisible, toggleStarfield } = useStarfield();
   const { isDVDVisible, toggleDVD } = useDVD();
 
   // A short-lived class drives the press burst. :active alone gets cut off
   // when a click is faster than the animation.
-  const [pressedId, setPressedId] = useState(null);
-  const pressTimerRef = useRef(null);
+  const [pressedId, setPressedId] = useState<string | null>(null);
+  const pressTimerRef = useRef<number | undefined>(undefined);
 
-  useEffect(() => () => clearTimeout(pressTimerRef.current), []);
+  useEffect(() => () => window.clearTimeout(pressTimerRef.current), []);
 
-  const flashPress = useCallback(id => {
+  const flashPress = useCallback((id: string) => {
     setPressedId(id);
-    clearTimeout(pressTimerRef.current);
-    pressTimerRef.current = setTimeout(() => setPressedId(null), 400);
+    window.clearTimeout(pressTimerRef.current);
+    pressTimerRef.current = window.setTimeout(() => setPressedId(null), 400);
   }, []);
 
-  const withBlip = (variant, handler, id) => () => {
+  const withBlip = (variant: BlipVariant, handler: () => void, id?: string) => () => {
     playArcadeBlip(variant);
     if (id) {
       flashPress(id);
@@ -85,14 +120,14 @@ const Hero = ({ activeSection, onSelectSection }) => {
   const isGame = activeSection === 'game';
 
   // Left: the important links, full size next to the sections.
-  const linkButtons = [
+  const linkButtons: LinkButton[] = [
     { id: 'github', label: 'GitHub', color: 'magenta', Icon: GitHubIcon, href: 'https://github.com/karenlauhl' },
     { id: 'linkedin', label: 'LinkedIn', color: 'yellow', Icon: LinkedInIcon, href: 'https://linkedin.com/in/karenlauhl' }
   ];
 
   // Right: the just-for-fun toggles. On = lit, off = dimmed; they never
   // move, so all three always look the same size.
-  const toggleButtons = [
+  const toggleButtons: ToggleButton[] = [
     { id: 'dvd', label: 'DVD', color: 'yellow', Icon: DiscIcon, title: 'Toggle DVD', on: isDVDVisible, onClick: toggleDVD },
     { id: 'stars', label: 'Stars', color: 'green', Icon: StarIcon, title: 'Toggle starfield', on: isStarfieldVisible, onClick: toggleStarfield },
     { id: 'theme', label: 'CRT', color: 'orange', Icon: isDarkMode ? MoonIcon : SunIcon, title: 'Toggle dark mode', on: isDarkMode, onClick: toggleDarkMode }
@@ -117,7 +152,7 @@ const Hero = ({ activeSection, onSelectSection }) => {
               ))}
             </span>
             <span className="marquee-title" key={activeSection ?? 'home'}>
-              {ActiveComponent ? activeButton.label.toUpperCase() : 'KAREN'}
+              {activeButton ? activeButton.label.toUpperCase() : 'KAREN'}
             </span>
           </div>
 
