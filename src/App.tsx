@@ -12,10 +12,11 @@ import Experience from './components/Experience/Experience';
 import Projects from './components/Projects/Projects';
 import About from './components/About/About';
 import Contact from './components/Contact/Contact';
+import type { ScreenApp } from './types';
 import './App.css';
 
 function App() {
-  const [activeSection, setActiveSection] = useState(null);
+  const [activeSection, setActiveSection] = useState<ScreenApp | null>(null);
   useScrollAnimation();
 
   return (

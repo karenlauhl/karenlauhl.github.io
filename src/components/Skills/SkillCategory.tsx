@@ -1,6 +1,11 @@
 import './SkillCategory.css';
 
-const SkillCategory = ({ title, skills }) => (
+interface SkillCategoryProps {
+  title: string;
+  skills: string[];
+}
+
+const SkillCategory = ({ title, skills }: SkillCategoryProps) => (
   <div className="skill-category pixel-panel animate-on-scroll">
     <h3>{title}</h3>
     <ul className="skill-list">

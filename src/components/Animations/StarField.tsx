@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { CSSProperties, useMemo } from 'react';
 import { useStarfield } from '../../contexts/StarfieldContext';
 import { prefersReducedMotion } from '../../utils/motion';
 import './StarField.css';
@@ -12,12 +12,13 @@ const StarField = () => {
   // so there's no imperative document.body appending or querySelectorAll.
   const stars = useMemo(
     () =>
-      Array.from({ length: STAR_COUNT }, () => ({
+      Array.from({ length: STAR_COUNT }, (): CSSProperties => ({
         left: `${Math.random() * 100}%`,
         animationDelay: `${Math.random() * 10}s`,
         animationDuration: `${5 + Math.random() * 10}s`,
         opacity: Math.random() * 0.6 + 0.4,
-        '--tx': `${(Math.random() - 0.5) * 300}px`
+        // CSS custom property read by the falling animation
+        ['--tx' as string]: `${(Math.random() - 0.5) * 300}px`
       })),
     []
   );

@@ -7,7 +7,7 @@ const HUE_ROTATIONS = [0, 45, 90, 135, 180, 225, 270, 315];
 
 const DVD = () => {
   const { isDVDVisible } = useDVD();
-  const dvdRef = useRef(null);
+  const dvdRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isDVDVisible || prefersReducedMotion()) {
@@ -31,7 +31,7 @@ const DVD = () => {
     let y = Math.random() * maxY;
     let vx = (Math.random() - 0.5) * 6 || 2;
     let vy = (Math.random() - 0.5) * 6 || 2;
-    let frameId = null;
+    let frameId: number | null = null;
 
     const changeColor = () => {
       const hue = HUE_ROTATIONS[Math.floor(Math.random() * HUE_ROTATIONS.length)];

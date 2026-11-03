@@ -1,14 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import { prefersReducedMotion } from '../../utils/motion';
+import type { NeonColor } from '../../types';
 import './StageClear.css';
 
 const COUNT_MS = 900;
-const pad = n => String(n).padStart(6, '0');
+const pad = (n: number) => String(n).padStart(6, '0');
 
 // Arcade "stage clear" strip between sections. The score counts up from 0 the
 // first time the strip scrolls into view.
-const StageClear = ({ label, score, color = 'cyan' }) => {
-  const ref = useRef(null);
+interface StageClearProps {
+  label: string;
+  score: number;
+  color?: NeonColor;
+}
+
+const StageClear = ({ label, score, color = 'cyan' }: StageClearProps) => {
+  const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(0);
 
   useEffect(() => {
@@ -20,12 +27,12 @@ const StageClear = ({ label, score, color = 'cyan' }) => {
       return undefined;
     }
 
-    let frame;
+    let frame = 0;
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
       observer.disconnect();
       const start = performance.now();
-      const tick = now => {
+      const tick = (now: number) => {
         const t = Math.min(1, (now - start) / COUNT_MS);
         setShown(Math.round(score * t));
         if (t < 1) frame = requestAnimationFrame(tick);

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { playArcadeBlip } from '../../utils/sound';
 import './SnakeGame.css';
 
@@ -8,20 +8,28 @@ const START_SPEED = 140;
 const MIN_SPEED = 70;
 const HIGH_SCORE_KEY = 'karenlauhl-snake-high-score';
 
-const DIRECTIONS = {
+interface Point {
+  x: number;
+  y: number;
+}
+
+type Direction = 'up' | 'down' | 'left' | 'right';
+type Status = 'idle' | 'playing' | 'over';
+
+const DIRECTIONS: Record<Direction, Point> = {
   up: { x: 0, y: -1 },
   down: { x: 0, y: 1 },
   left: { x: -1, y: 0 },
   right: { x: 1, y: 0 }
 };
 
-const KEY_MAP = {
+const KEY_MAP: Record<string, Direction | undefined> = {
   ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right',
   w: 'up', s: 'down', a: 'left', d: 'right',
   W: 'up', S: 'down', A: 'left', D: 'right'
 };
 
-const readHighScore = () => {
+const readHighScore = (): number => {
   try {
     return Number(window.localStorage.getItem(HIGH_SCORE_KEY) || '0');
   } catch (error) {
@@ -29,7 +37,7 @@ const readHighScore = () => {
   }
 };
 
-const writeHighScore = value => {
+const writeHighScore = (value: number): void => {
   try {
     window.localStorage.setItem(HIGH_SCORE_KEY, String(value));
   } catch (error) {
@@ -37,17 +45,17 @@ const writeHighScore = value => {
   }
 };
 
-const initialSnake = () => [
+const initialSnake = (): Point[] => [
   { x: 8, y: 9 },
   { x: 7, y: 9 },
   { x: 6, y: 9 }
 ];
 
-const randomFood = snake => {
+const randomFood = (snake: Point[]): Point => {
   // Pick uniformly from the cells the snake isn't occupying, so this can't
   // spin on a nearly-full board the way rejection sampling would.
   const taken = new Set(snake.map(part => `${part.x},${part.y}`));
-  const free = [];
+  const free: Point[] = [];
   for (let y = 0; y < ROWS; y += 1) {
     for (let x = 0; x < COLS; x += 1) {
       if (!taken.has(`${x},${y}`)) {
@@ -64,14 +72,14 @@ const SnakeGame = () => {
   const snakeRef = useRef(initialSnake());
   const foodRef = useRef(randomFood(snakeRef.current));
   const dirRef = useRef(DIRECTIONS.right);
-  const queuedDirRef = useRef(null);
+  const queuedDirRef = useRef<Point | null>(null);
   const speedRef = useRef(START_SPEED);
   const scoreRef = useRef(0);
 
   const [frame, setFrame] = useState({ snake: snakeRef.current, food: foodRef.current });
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(readHighScore);
-  const [status, setStatus] = useState('idle');
+  const [status, setStatus] = useState<Status>('idle');
 
   const start = useCallback(() => {
     snakeRef.current = initialSnake();
@@ -85,7 +93,7 @@ const SnakeGame = () => {
     setStatus('playing');
   }, []);
 
-  const turn = useCallback(name => {
+  const turn = useCallback((name: Direction) => {
     const next = DIRECTIONS[name];
     const current = queuedDirRef.current || dirRef.current;
     // Reject 180° reversals — they'd instantly collide with the neck.
@@ -103,7 +111,7 @@ const SnakeGame = () => {
       return undefined;
     }
 
-    let intervalId = null;
+    let intervalId: number | undefined;
 
     const tick = () => {
       if (queuedDirRef.current) {
@@ -144,21 +152,21 @@ const SnakeGame = () => {
         const faster = Math.max(MIN_SPEED, speedRef.current - 4);
         if (faster !== speedRef.current) {
           speedRef.current = faster;
-          clearInterval(intervalId);
-          intervalId = setInterval(tick, faster);
+          window.clearInterval(intervalId);
+          intervalId = window.setInterval(tick, faster);
         }
       }
 
       setFrame({ snake: nextSnake, food: foodRef.current });
     };
 
-    intervalId = setInterval(tick, speedRef.current);
-    return () => clearInterval(intervalId);
+    intervalId = window.setInterval(tick, speedRef.current);
+    return () => window.clearInterval(intervalId);
   }, [status]);
 
   // Keyboard input.
   useEffect(() => {
-    const onKeyDown = event => {
+    const onKeyDown = (event: KeyboardEvent) => {
       const direction = KEY_MAP[event.key];
       if (direction) {
         // Stop arrow keys scrolling the page behind the cabinet.
@@ -178,7 +186,7 @@ const SnakeGame = () => {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [turn, start, status]);
 
-  const cellStyle = (x, y) => ({
+  const cellStyle = (x: number, y: number): CSSProperties => ({
     left: `${(x / COLS) * 100}%`,
     top: `${(y / ROWS) * 100}%`,
     width: `${100 / COLS}%`,
